@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx'; // IMPORTANTE: IMPORT ATUALIZADO
 import { StorageService } from '../services/storage.service';
-import { AlertController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -29,6 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           case 401:
             this.handle401();
             break;
+
           case 403:
             this.handle403();
             break;
@@ -44,6 +45,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   handle403() {
     this.storage.setLocalUser(null);
   }
+
   handle401() {
     let alert = this.alertCtrl.create({
       title: 'Erro 401: falha de autenticação',

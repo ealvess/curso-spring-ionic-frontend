@@ -22,18 +22,19 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
-    }
-    ionViewDidLeave() {
+  }
+  ionViewDidLeave() {
     this.menu.swipeEnable(true);
-    }
+  }
 
-  login(){
+
+  login() {
     this.auth.authenticate(this.creds)
       .subscribe(response => {
         this.auth.successfulLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot('CategoriasPage');
       },
-      error => {});
+        error => { });
 
   }
 
