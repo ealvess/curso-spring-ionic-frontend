@@ -1,10 +1,8 @@
-import { AuthService } from './../services/auth.service';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { HomePage } from '../pages/home/home';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,17 +12,21 @@ export class MyApp {
 
   rootPage: string = 'HomePage';
 
-  pages: Array<{ title: string, component: string }>;
+  pages: Array<{title: string, component: string}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar,
-    public splashScreen: SplashScreen, public auth: AuthService) {
+  constructor(
+    public platform: Platform, 
+    public statusBar: StatusBar, 
+    public splashScreen: SplashScreen,
+    public auth: AuthService
+  ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Profile', component: 'ProfilePage' },
       { title: 'Categorias', component: 'CategoriasPage' },
-      { title: 'Logout', component: '' },
+      { title: 'Logout', component: ''}
     ];
 
   }
@@ -38,15 +40,16 @@ export class MyApp {
     });
   }
 
-  openPage(page: { title: string, component: string }) {
+  openPage(page : {title:string, component:string}) {
+
     switch (page.title) {
       case 'Logout':
-        this.auth.logout();
-        this.nav.setRoot('HomePage');
-        break;
+      this.auth.logout();
+      this.nav.setRoot('HomePage');
+      break;
 
       default:
-        this.nav.setRoot(page.component);
+      this.nav.setRoot(page.component);
     }
   }
 }
