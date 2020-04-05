@@ -1,3 +1,5 @@
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { ClienteService } from './../../services/domain/cliente.service';
 import { EstadoDTO } from './../../models/estado.dto';
 import { CidadeService } from './../../services/domain/cidade.service';
 import { EstadoService } from './../../services/domain/estado.service';
@@ -5,6 +7,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CidadeDTO } from '../../models/cidade.dto';
+import { Alert } from 'ionic-angular/components/alert/alert';
 
 @IonicPage()
 @Component({
@@ -22,7 +25,9 @@ export class SignupPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public estadoService: EstadoService,
-    public cidadeService: CidadeService) {
+    public cidadeService: CidadeService,
+    public clienteService: ClienteService,
+    public alertCtrl: AlertController) {
 
     this.formGroup = this.formBuilder.group({
       nome: ['Joaquim', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
@@ -64,7 +69,27 @@ export class SignupPage {
   }
 
   signupUser() {
-
+    this.clienteService.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+      },
+        error => { });
+  }
+  showInsertOk() {
+    let alert = this.alertCtrl.create({
+      title: 'Sucesso!',
+      message: 'Cadastro efetuado com sucesso',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
