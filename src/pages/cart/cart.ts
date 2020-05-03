@@ -1,3 +1,4 @@
+import { PickAddressPage } from './../pick-address/pick-address';
 import { API_CONFIG } from './../../config/api.config';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -58,5 +59,8 @@ export class CartPage {
 
   goOn() {
     this.navCtrl.setRoot('CategoriasPage');
+  }
+  checkout(){
+    this.navCtrl.push('PickAddressPage');
   }
 }
